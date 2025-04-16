@@ -23,6 +23,19 @@ Perfect for practicing full-stack deployment, testing CI/CD pipelines, or hostin
 ---
 
 ## ✨ Features
+![Gitea Home](./screenshots/gitea-home.png)
+
+### 🌐 WordPress Home
+![WordPress Home](./screenshots/wordpress-home.png)
+
+### 📊 Grafana Monitoring Dashboard  
+![Grafana Dashboard](./screenshots/grafana.png)
+
+### 📦 Prometheus Metrics Endpoint  
+![Prometheus Metrics](./screenshots/prometheus.png)
+
+### 📈 cAdvisor Container Monitoring  
+![cAdvisor UI](./screenshots/cadvisor.png)
 
 ✅ Easy deployment using Docker Compose  
 ✅ Uses CentOS 8 as base host with systemd integration  
