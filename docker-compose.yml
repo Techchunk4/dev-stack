@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  gitea:
+    image: gitea/gitea:latest
+    environment:
+      - DB_TYPE=postgres
+      - DB_HOST=gitea_db:5432
+      - DB_NAME=gitea
+      - DB_USER=gitea
+      - DB_PASSWD=gitea
+    ports:
+      - "3000:3000"
+    volumes:
+      - gitea_data:/data
+    depends_on:
+      - gitea_db
+    restart: always
+
+  gitea_db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=gitea
+      - POSTGRES_PASSWORD=gitea
+      - POSTGRES_DB=gitea
+    volumes:
+      - gitea_db_data:/var/lib/postgresql/data
+    restart: always
+
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - "8080:80"
+    environment:
+      - WORDPRESS_DB_HOST=wp_db:3306
+      - WORDPRESS_DB_USER=wp_user
+      - WORDPRESS_DB_PASSWORD=wp_pass
+      - WORDPRESS_DB_NAME=wordpress
+    volumes:
+      - wordpress_data:/var/www/html
+    depends_on:
+      - wp_db
+    restart: always
+
+  wp_db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wp_user
+      - MYSQL_PASSWORD=wp_pass
+      - MYSQL_ROOT_PASSWORD=rootpass
+    volumes:
+      - wp_db_data:/var/lib/mysql
+    restart: always
+
+volumes:
+  gitea_data:
+  gitea_db_data:
+  wordpress_data:
+  wp_db_data:
